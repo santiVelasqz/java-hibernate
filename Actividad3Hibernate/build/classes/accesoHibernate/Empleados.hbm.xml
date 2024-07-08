@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-mar-2024 10:53:24 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="accesoHibernate.Empleados" table="empleados" catalog="empresa" optimistic-lock="version">
+        <id name="idEmpleado" type="java.lang.Integer">
+            <column name="id_empleado" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="incidencias" class="accesoHibernate.Incidencias" fetch="select">
+            <column name="id_incidencia" />
+        </many-to-one>
+        <property name="nombreUsuario" type="string">
+            <column name="nombre_usuario" length="50" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="contrasena" length="50" />
+        </property>
+        <property name="nombreCompleto" type="string">
+            <column name="nombre_completo" length="100" />
+        </property>
+        <property name="telefonoContacto" type="string">
+            <column name="telefono_contacto" length="15" />
+        </property>
+        <set name="incidenciasesForIdEmpleadoDestino" table="incidencias" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empleado_destino" />
+            </key>
+            <one-to-many class="accesoHibernate.Incidencias" />
+        </set>
+        <set name="incidenciasesForIdEmpleadoOrigen" table="incidencias" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empleado_origen" />
+            </key>
+            <one-to-many class="accesoHibernate.Incidencias" />
+        </set>
+    </class>
+</hibernate-mapping>

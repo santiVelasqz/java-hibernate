@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-mar-2024 10:53:24 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="accesoHibernate.Incidencias" table="incidencias" catalog="empresa" optimistic-lock="version">
+        <id name="idIncidencia" type="java.lang.Integer">
+            <column name="id_incidencia" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleadosByIdEmpleadoDestino" class="accesoHibernate.Empleados" fetch="select">
+            <column name="id_empleado_destino" />
+        </many-to-one>
+        <many-to-one name="empleadosByIdEmpleadoOrigen" class="accesoHibernate.Empleados" fetch="select">
+            <column name="id_empleado_origen" />
+        </many-to-one>
+        <property name="fechaHoraGeneracion" type="timestamp">
+            <column name="fecha_hora_generacion" length="19" />
+        </property>
+        <property name="empleadoOrigen" type="string">
+            <column name="empleado_origen" length="50" />
+        </property>
+        <property name="empleadoDestino" type="string">
+            <column name="empleado_destino" length="50" />
+        </property>
+        <property name="detalleIncidencia" type="string">
+            <column name="detalle_incidencia" length="65535" />
+        </property>
+        <property name="tipoIncidencia" type="java.lang.Character">
+            <column name="tipo_incidencia" length="1" />
+        </property>
+        <set name="empleadoses" table="empleados" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_incidencia" />
+            </key>
+            <one-to-many class="accesoHibernate.Empleados" />
+        </set>
+    </class>
+</hibernate-mapping>
